@@ -1,0 +1,55 @@
+version: "3"
+
+services:
+  wordpress:  
+    build: ./wordpress
+    ports:
+      - "8080:80"
+    environment:
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_USER: ${DB_USER}
+      DB_NAME: ${DB_NAME}
+      DB_HOST: ${DB_HOST}
+    depends_on:
+      - "db"
+    volumes:
+      - "./wordpress/wp-content/themes:/var/www/html/wp-content/themes"
+      - "./wordpress/wp-config.php:/var/www/html/wp-config.php"
+  
+  pwa:
+    command: "yarn run develop"
+    build:
+      context: ./pwa
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./pwa/src:/app/src
+      - ./pwa/core:/app/core
+      - /app/node_modules
+    environment:
+      - FILEPATH=${FILEPATH}
+    ports:
+      - "1337:1337"
+      - "7331:7331" 
+    
+  db:
+    image: mysql:5.7
+    ports:
+      - 3308:3306
+    environment:
+      MYSQL_ROOT_PASSWORD:  ${DB_PASSWORD}
+      MYSQL_USER:  ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+    volumes:
+      - ./db/data/mysql:/var/lib/mysql
+      - ./db/backup:/tmp
+  # proxy:
+  #   image: "jwilder/nginx-proxy:alpine"
+  #   ports:
+  #     - "8080:80"
+  #   networks:
+  #     front:
+  #       aliases:
+  #         - "${DOCKER_DEV_DOMAIN}"
+  #   volumes:
+  #     - "/var/run/docker.sock:/tmp/docker.sock:ro"

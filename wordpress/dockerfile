@@ -1,0 +1,20 @@
+FROM nimmis/apache-php7
+
+COPY ./conf /etc/apache2/sites-enabled/
+
+RUN a2enmod rewrite
+RUN service apache2 restart
+
+
+COPY ./composer.json /var/www/html/composer.json
+COPY ./wp-config.php /var/www/html/wp-config.php
+WORKDIR /var/www/html
+
+# Install app dependencies
+RUN composer install --prefer-dist
+
+# Create app directory
+COPY ./wp-content/plugins ./wp-content/plugins
+
+
+EXPOSE 80

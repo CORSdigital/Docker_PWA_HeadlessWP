@@ -1,0 +1,54 @@
+{
+  "name": "headless-wp",
+  "type": "project",
+  "license": "MIT",
+  "description": "An API-based Wordpress CMS",
+  "homepage": "http://cors.digital",
+  "authors": [
+    {
+      "name": "Hugo Rodrigues",
+      "email": "hugo@cors.digital",
+      "homepage": "https://github.com/hugominas"
+    }
+  ],
+  "keywords": ["wp", "cms", "api"],
+
+  "config": {
+    "preferred-install": "dist"
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://wpackagist.org"
+    }
+  ],
+  "require": {
+    "php": ">=5.4",
+    "composer/installers": "~1.0.12",
+    "davidbarratt/custom-installer": "1.0.*@dev",
+    "vlucas/phpdotenv": "^2.0.1",
+    "johnpbloch/wordpress": "~4.9.0",
+    "wpackagist-plugin/admin-menu-editor": "~1.8.2",
+    "wpackagist-plugin/advanced-custom-field-repeater-collapser": "~1.5.0",
+    "wpackagist-plugin/duplicate-post": "~3.2",
+    "wpackagist-plugin/members": "~2.0.2",
+    "wpackagist-plugin/fancy-admin-ui": "~2.1",
+    "wpackagist-plugin/hierarchy": "~1.0.5"
+  },
+  "extra": {
+    "installer-paths": {
+      "wp-content/plugins/": [
+        "type:wordpress-plugin",
+        "wpackagist-plugin/admin-menu-editor",
+        "wpackagist-plugin/advanced-custom-field-repeater-collapser",
+        "wpackagist-plugin/hierarchy",
+        "wpackagist-plugin/duplicate-post",
+        "wpackagist-plugin/members",
+        "wpackagist-plugin/fancy-admin-ui"
+      ],
+      "wp-content/mu-plugins/{$name}/": ["type:wordpress-muplugin"],
+      "wp-content/themes/{$name}/": ["type:wordpress-theme"]
+    },
+    "wordpress-install-dir": "./"
+  }
+}
