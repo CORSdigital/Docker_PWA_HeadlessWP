@@ -14,7 +14,7 @@ export function fetch(id) {
 
     return (
       axios
-        .get(`https://jsonplaceholder.typicode.com/posts/${id}`)
+        .get(`http://localhost:8080/wp-json/wp/v2/posts/${id} `)
         .then(({ data }) => dispatch(fetched(data)))
         // We use 'react-jobs' to call our actions.  We don't want to return
         // the actual action to the 'react-jobs' withJob as it will cause

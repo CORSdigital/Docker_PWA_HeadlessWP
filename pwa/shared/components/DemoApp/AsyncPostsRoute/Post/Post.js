@@ -15,17 +15,16 @@ export function Post({ post }) {
     return null;
   }
 
-  const { title, body } = post;
+  const { content, title } = post;
 
   return (
     <div>
-      <Helmet title={`Posts - ${title}`} />
+      <Helmet title={`Posts - ${title.rendered}`} />
 
       <h1>
-        {title}
+        {title.rendered}
       </h1>
-      <div>
-        {body}
+      <div dangerouslySetInnerHTML={{__html:content.rendered}}>
       </div>
     </div>
   );

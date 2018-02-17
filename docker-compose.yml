@@ -22,13 +22,16 @@ services:
       context: ./pwa
       dockerfile: ./Dockerfile
     volumes:
-      - ./pwa/src:/app/src
-      - ./pwa/core:/app/core
-      - /app/node_modules
+      - ./pwa/server:/usr/src/app/server
+      - ./pwa/client:/usr/src/app/client
+      - ./pwa/config:/usr/src/app/config
+      - ./pwa/shared:/usr/src/app/shared
+      - ./pwa/internal:/usr/src/app/internal
+      - /usr/src/app/node_modules
     environment:
       - FILEPATH=${FILEPATH}
     ports:
-      - "1337:1337"
+      - "3000:1337"
       - "7331:7331" 
     
   db:
